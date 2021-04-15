@@ -27,11 +27,42 @@ class ViewController: UIViewController {
         let linkList = LinkList();
         
         // 尾插法
-        linkList.insertNodeLast(value: 1)
-        linkList.insertNodeLast(value: 2)
-        linkList.insertNodeLast(value: 3)
-        linkList.insertNodeLast(value: 4)
-        linkList.insertNodeLast(value: 5)
+//        linkList.insertNodeLast(value: 1)
+//        linkList.insertNodeLast(value: 5)
+//        linkList.insertNodeLast(value: 6)
+//        linkList.insertNodeLast(value: 5)
+//        linkList.insertNodeLast(value: 1)
+        
+//        linkList.insertNodeLast(value: 7)
+//        linkList.insertNodeLast(value: 9)
+//        linkList.insertNodeLast(value: 11)
+//        linkList.insertNodeLast(value: 13)
+        
+//        deleteNode(index: 7, linkList: linkList);
+        
+//        middleNode(linkList: linkList)
+        
+        checkHuiWen(linkList: linkList);
+        
+//        let linkList1 = LinkList();
+//        // 尾插法
+//        linkList1.insertNodeLast(value: 2)
+//        linkList1.insertNodeLast(value: 4)
+//        linkList1.insertNodeLast(value: 6)
+//        linkList1.insertNodeLast(value: 8)
+//        linkList1.insertNodeLast(value: 10)
+//        linkList1.insertNodeLast(value: 12)
+//        linkList1.insertNodeLast(value: 14)
+//        mergeLinkList1(linkList, linkList1)
+        
+        // 反转链表,普通算法
+//        reverseLinkList(linkList: linkList)
+        // 反转链表，递归算法
+//        linkList.headNode = reverseLinkNode(linkNode: linkList.headNode)
+//        linkList.printLinkList()
+        
+        // 判断链表是否有环
+//        cycleCheck(linkList : linkList);
         
         // 指定位置插入
 //        linkList.insertNode(value: 0, index: 7)
@@ -43,7 +74,7 @@ class ViewController: UIViewController {
 //        linkList.delLastNode();
         
         // 删除指定位置结点
-        linkList.delNode(index: 5);
+//        linkList.delNode(index: 5);
         
         // 头插法
 //        linkList.insertNodeFirst(value: 5);

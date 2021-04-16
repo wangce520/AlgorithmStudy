@@ -14,6 +14,7 @@ class LinkNode : NSObject {
 
 class LinkList : NSObject {
     var headNode : LinkNode? = nil
+    var count : Int = 0;
     
     // 判断链表是否为空
     func isEmpty() -> Bool {
@@ -409,3 +410,62 @@ func reverseLinkNode(linkNode : LinkNode?) -> LinkNode?{
 //1 - 2 - 3 - 4 - 5
 
 
+
+
+
+
+
+
+
+
+
+func updateNode(node : LinkNode, linkList : LinkList) {
+    let maxNodes = 5;
+    if contaninNode(node: node, linkList: linkList) {
+        // 找到node，将它移除，然后插入头部
+        let headNode = LinkNode()
+        headNode.next = linkList.headNode;
+        var preNode = headNode;
+        while preNode.next != nil {
+            if preNode.next?.value ==  node.value{
+                preNode.next = preNode.next?.next;
+                break;
+            }
+            preNode = preNode.next!
+        }
+        
+        // 插入到头部
+        node.next = linkList.headNode;
+        linkList.headNode = node;
+        
+    }else{
+        // 不存在，直接插到头部
+        node.next = linkList.headNode;
+        linkList.headNode = node;
+        linkList.count += 1;
+        
+        if linkList.count > maxNodes {
+            // 如果>最大数量，那么移除最后一个，找到倒数第二个
+            var curNode = linkList.headNode;
+            while curNode?.next?.next != nil {
+                curNode = curNode?.next
+            }
+            curNode?.next = nil;
+            linkList.count -= 1;
+        }
+    }
+    print("打印链表")
+    linkList.printLinkList()
+}
+
+// 判断node是否存在
+func contaninNode(node : LinkNode, linkList : LinkList) -> Bool {
+    var curNode = linkList.headNode;
+    while curNode != nil {
+        if curNode?.value == node.value {
+            return true
+        }
+        curNode = curNode?.next
+    }
+    return false
+}

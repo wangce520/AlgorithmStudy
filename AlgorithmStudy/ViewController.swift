@@ -26,6 +26,37 @@ class ViewController: UIViewController {
         // 创建链表
         let linkList = LinkList();
         
+        // 简易实现LRU
+//        let node1 = LinkNode()
+//        node1.value = 1;
+//        updateNode(node: node1, linkList: linkList);
+//
+//        let node2 = LinkNode()
+//        node2.value = 2;
+//        updateNode(node: node2, linkList: linkList);
+//
+//        let node3 = LinkNode()
+//        node3.value = 3;
+//        updateNode(node: node3, linkList: linkList);
+//
+//        let node4 = LinkNode()
+//        node4.value = 4;
+//        updateNode(node: node4, linkList: linkList);
+//
+//        let node5 = LinkNode()
+//        node5.value = 5;
+//        updateNode(node: node5, linkList: linkList);
+//
+//        let node6 = LinkNode()
+//        node6.value = 6;
+//        updateNode(node: node6, linkList: linkList);
+//
+//        let node7 = LinkNode()
+//        node7.value = 7;
+//        updateNode(node: node7, linkList: linkList);
+//
+//        updateNode(node: node3, linkList: linkList);
+        
         // 尾插法
 //        linkList.insertNodeLast(value: 1)
 //        linkList.insertNodeLast(value: 5)
@@ -42,7 +73,7 @@ class ViewController: UIViewController {
         
 //        middleNode(linkList: linkList)
         
-        checkHuiWen(linkList: linkList);
+//        checkHuiWen(linkList: linkList);
         
 //        let linkList1 = LinkList();
 //        // 尾插法

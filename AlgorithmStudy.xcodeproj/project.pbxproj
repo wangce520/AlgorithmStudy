@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0983CEEE26299F9200AB8270 /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0983CEED26299F9200AB8270 /* Stack.swift */; };
 		B4ABD1682621F6B700DE313B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4ABD1672621F6B700DE313B /* AppDelegate.swift */; };
 		B4ABD16A2621F6B700DE313B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4ABD1692621F6B700DE313B /* SceneDelegate.swift */; };
 		B4ABD16C2621F6B700DE313B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4ABD16B2621F6B700DE313B /* ViewController.swift */; };
@@ -21,6 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0983CEED26299F9200AB8270 /* Stack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stack.swift; sourceTree = "<group>"; };
 		B4ABD1642621F6B700DE313B /* AlgorithmStudy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AlgorithmStudy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4ABD1672621F6B700DE313B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B4ABD1692621F6B700DE313B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -47,6 +49,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0983CEEC26299F8700AB8270 /* Stack */ = {
+			isa = PBXGroup;
+			children = (
+				0983CEED26299F9200AB8270 /* Stack.swift */,
+			);
+			path = Stack;
+			sourceTree = "<group>";
+		};
 		B4ABD15B2621F6B700DE313B = {
 			isa = PBXGroup;
 			children = (
@@ -67,6 +77,7 @@
 			isa = PBXGroup;
 			children = (
 				B4ABD1812621F81D00DE313B /* PublicProtocol.swift */,
+				0983CEEC26299F8700AB8270 /* Stack */,
 				B4ABD19C262338BC00DE313B /* LinkList */,
 				B4ABD17C2621F6CE00DE313B /* Array */,
 				B4ABD1672621F6B700DE313B /* AppDelegate.swift */,
@@ -169,6 +180,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B4ABD1822621F81D00DE313B /* PublicProtocol.swift in Sources */,
+				0983CEEE26299F9200AB8270 /* Stack.swift in Sources */,
 				B4ABD16C2621F6B700DE313B /* ViewController.swift in Sources */,
 				B4ABD1682621F6B700DE313B /* AppDelegate.swift in Sources */,
 				B4ABD19E262338C800DE313B /* LinkList.swift in Sources */,

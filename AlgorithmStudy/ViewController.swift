@@ -14,10 +14,28 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view.
         
         // 数组相关方法
-        self.arrayMethod()
+//        self.arrayMethod()
         
         // 链表
-        self.linkListMethod()
+//        self.linkListMethod()
+        
+        // 栈相关方法
+        self.stackMethod()
+        
+    }
+    
+    // 栈
+    func stackMethod() {
+//        let stack = Stack<Int>()
+        // 栈的基本操作
+//        stack.push(data: 1)
+//        stack.push(data: 2)
+//        stack.push(data: 3)
+//
+//        stack.pop();
+        
+        // 表达式求值
+        cacluteResult()
     }
     
     // 链表

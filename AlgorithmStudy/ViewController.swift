@@ -20,8 +20,19 @@ class ViewController: UIViewController {
 //        self.linkListMethod()
         
         // 栈相关方法
-        self.stackMethod()
+//        self.stackMethod()
         
+        // 排序
+        self.sortMethod();
+        
+    }
+    
+    // 排序
+    func sortMethod() {
+        let sort = Sort()
+//        sort.maopao();
+//        sort.charu();
+        sort.selection()
     }
     
     // 栈

@@ -13,459 +13,388 @@ class LinkNode : NSObject {
 }
 
 class LinkList : NSObject {
-    var headNode : LinkNode? = nil
-    var count : Int = 0;
+    
+    var _headNode : LinkNode? = nil
     
     // 判断链表是否为空
     func isEmpty() -> Bool {
-        return headNode == nil;
+        return _headNode == nil;
     }
     
-    // 删除指定位置的节点
-    func delNode(index : Int) {
-        // 如果没有有一个节点
-        if self.isEmpty() {
-            print("当前链表是空的，无需删除")
-            return
-        }
-        
-        let firstNode = LinkNode()
-        firstNode.next = self.headNode;
-        
-        var curIndex = 1;
-        var curNode : LinkNode? = firstNode;
-        while curNode?.next != nil {
-            if curIndex == index {
-                print("删除节点成功，值为\(curNode!.next!.value)")
-                curNode?.next = curNode?.next?.next;
-                self.headNode = firstNode.next;
-                printLinkList()
-                return;
-            }
-            curNode = curNode?.next;
-            curIndex += 1
-        }
-        print("删除时超出范围")
+    // 从头插入
+    func insertHeadNode(value : Int) {
+        let newHeadNode = LinkNode()
+        newHeadNode.value = value;
+        newHeadNode.next = _headNode;
+        _headNode = newHeadNode;
     }
     
-    // 删除尾结点
-    func delLastNode() {
-        // 如果没有有一个节点
-        if self.isEmpty() {
-            print("当前链表是空的，无需删除")
-            return
-        }
-        // 如果只有一个节点
-        if self.headNode?.next == nil {
-            print("只有一个结点，删除成功")
-            self.headNode = nil
-            printLinkList()
-            return
-        }
+    // 从尾部插入
+    func insertLastNode(value : Int) {
+        let newLastNode = LinkNode()
+        newLastNode.value = value;
         
-        // 获取倒数第一个节点
-        var curNode = self.headNode;
-        while curNode?.next?.next != nil {
-            curNode = curNode?.next
-        }
-        
-        print("删除节点成功，值为\(curNode!.value)")
-        curNode?.next = nil;
-        printLinkList()
-    }
-    
-    // 删除头结点
-    func delFirstNode() {
-        // 如果没有有一个节点
-        if self.isEmpty() {
-            print("当前链表是空的，无需删除")
-            return
-        }
-        // 如果只有一个节点
-        if self.headNode?.next == nil {
-            print("只有一个结点，删除成功")
-            self.headNode = nil
-            printLinkList()
-            return
-        }
-        
-        print("删除节点成功，值为\(self.headNode!.value)")
-        self.headNode = self.headNode?.next;
-        printLinkList()
-        
-    }
-    
-    // 头插法插入链表
-    func insertNodeFirst(value:Int) {
-        print("头插法插入结点，值为：\(value)")
-        let node = LinkNode()
-        node.value = value;
-        node.next = headNode;
-        self.headNode = node;
-        printLinkList();
-    }
-    
-    // 尾插法插入链表
-    func insertNodeLast(value : Int){
-        print("尾插法插入结点，值为：\(value)")
-        
-        let newNode = LinkNode()
-        newNode.value = value;
-        
-        // 如果头结点就为nil，则直接赋值
-        guard self.headNode != nil else {
-            self.headNode = newNode;
-            printLinkList()
+        guard _headNode != nil else {
+            _headNode = newLastNode;
             return;
         }
         
-        var node = self.headNode;
-        while node?.next != nil {
-            node = node?.next
+        // 先找到最后一个结点
+        var curNode = _headNode!;
+        while curNode.next != nil {
+            curNode = curNode.next!;
         }
-        node?.next = newNode
-        printLinkList()
+        
+        // 插入最后
+        curNode.next = newLastNode;
     }
     
-    // 指定位置插入链表
-    func insertNode(value : Int, index : Int) {
-        print("指定位置插入，值为\(value)")
+    // 指定位置插入
+    func insertNode(value:Int, index : Int) {
         let newNode = LinkNode()
         newNode.value = value;
         
-        // 另加头结点的方法，这样一来就不用对第一个做判断了
-        let firstNode = LinkNode()
-        firstNode.value = 0;
-        firstNode.next = self.headNode;
+        // 构建虚拟头结点
+        let dummyPreNode = LinkNode()
+        dummyPreNode.next = _headNode;
         
-        var curIndex = 1;
-        var curNode : LinkNode? = firstNode;
-        while curNode != nil{
-            if curIndex == index {
-                newNode.next = curNode?.next;
-                curNode?.next = newNode;
-                self.headNode = firstNode.next;
-                printLinkList()
-                return
-            }
-            curIndex += 1
-            curNode = curNode?.next
+        var preNode = dummyPreNode;
+        var indexx = 1;
+        while indexx < index && preNode.next != nil{
+            preNode = preNode.next!;
+            indexx += 1;
         }
         
+        newNode.next = preNode.next;
+        preNode.next = newNode;
+        _headNode = dummyPreNode.next;
+    }
+    
+    // 删除指定下标位置的节点
+    func deleteIndexNode(index : Int) {
+        // 构建虚拟头结点
+        let dummyPreNode = LinkNode()
+        dummyPreNode.next = _headNode;
         
-        // 普通方法
-        // 如果插入的是第一个位置
-//        guard index > 1 else {
-//            newNode.next = self.headNode;
-//            self.headNode = newNode;
-//            printLinkList()
-//            return
-//        }
-//
-//        // 如果插入的是别的位置
-//        var curIndex = 1;
-//        var curNode = self.headNode;
-//        while curNode != nil {
-//            if curIndex == index - 1 {
-//                newNode.next = curNode?.next;
-//                curNode?.next = newNode
-//                printLinkList()
-//                return
-//            }
-//            curIndex += 1
-//            curNode = curNode?.next
-//        }
-        print("插入时超出范围")
+        var preNode = dummyPreNode;
+        var indexx = 1;
+        while indexx < index && preNode.next != nil{
+            preNode = preNode.next!;
+            indexx += 1;
+        }
+        
+        preNode.next = preNode.next?.next;
+        _headNode = dummyPreNode.next;
+    }
+    
+    // 删除尾结点
+    func deleteLastNode() {
+        
+        if isEmpty(){
+            return;
+        }
+        
+        if _headNode?.next == nil {
+            _headNode = nil;
+            return;
+        }
+        
+        var curNode = _headNode;
+        while curNode?.next?.next != nil{
+            curNode = curNode?.next!;
+        }
+        curNode?.next = nil;
+    }
+    
+    // 删除头结点
+    func deleteFirstNode() -> Int {
+        if isEmpty(){
+            return -1;
+        }
+        let result = _headNode?.value;
+        _headNode = _headNode?.next;
+        return result!;
+    }
+    
+    // 获取指定下标的值
+    func getNodeValue(index : Int) -> Int {
+        if isEmpty() {
+            return -1;
+        }
+        var curNode = _headNode;
+        var indexx = 1;
+        while curNode?.next != nil && indexx < index {
+            curNode = curNode?.next
+            indexx += 1;
+        }
+        return curNode!.value
+    }
+    
+    // 获取指定值的下标
+    func getNodeIndex(value : Int) -> Int {
+        if isEmpty() {
+            return -1;
+        }
+        var curNode = _headNode;
+        var indexx = 1;
+        while curNode != nil && curNode?.value != value{
+            curNode = curNode?.next;
+            indexx += 1
+        }
+        
+        return indexx
     }
     
     // 打印链表
     func printLinkList() {
-        guard headNode != nil else {
-            print("当前链表为空")
+        var curNode = _headNode;
+        while curNode != nil {
+            print("\(curNode!.value) -> ", terminator: "")
+            curNode = curNode!.next;
+        }
+        print("nil")
+    }
+    
+    // 获取链表数量
+    func totalCount() -> Int {
+        var node = _headNode;
+        var result = 0;
+        while node != nil {
+            result += 1;
+            node = node?.next;
+        }
+        return result;
+    }
+    
+    // 构建环
+    func buildCycle(){
+        if isEmpty() {
             return
         }
-        
-        var curNode = headNode;
-        while curNode != nil {
-            if curNode!.next == nil {
-                print("\(curNode!.value)")
-            }else{
-                print("\(curNode!.value) -> ",terminator: "")
-            }
-            curNode = curNode?.next
+        var curNode = _headNode;
+        while curNode?.next != nil {
+            curNode = curNode?.next;
         }
+        curNode?.next = _headNode;
     }
 }
 
-/// LRU
-
-
-
-/// 判断是否为回文链表 1 2 3 4 5 6
-func checkHuiWen(linkList : LinkList){
-    // 先找到中间节点
-    print("判断是否为回文链表")
-    if linkList.headNode == nil || linkList.headNode?.next == nil || linkList.headNode?.value == linkList.headNode?.next?.value{
-        print("是回文链表")
-        return
+/// 判断是否为回文链表 1 2 3 2 1
+func checkLinkListHuiWen(linkList : LinkList) -> Bool {
+    
+    if linkList.isEmpty() {
+        return false;
     }
     
-    var quickNode = linkList.headNode;
-    var slowNode = linkList.headNode;
-    while quickNode?.next?.next != nil{
-        slowNode = slowNode?.next
-        quickNode = quickNode?.next?.next
+    if linkList._headNode?.next == nil {
+        return true
     }
     
-    // 反转
-    var preNode = slowNode
-    var curNode = preNode?.next;
+    // 找到中间靠后的结点，并且翻转
+    var slowNode = linkList._headNode;
+    var quickNode = linkList._headNode;
+    while quickNode?.next != nil {
+        slowNode = slowNode?.next;
+        quickNode = quickNode?.next?.next;
+    }
+    
+    // slowNode为中间靠后结点，直接翻转
+    var preNode : LinkNode? = nil
+    var curNode = slowNode;
     while curNode != nil {
         let nextNode = curNode?.next;
         curNode?.next = preNode;
-        preNode = curNode
-        curNode = nextNode
+        preNode = curNode;
+        curNode = nextNode;
     }
     
-    slowNode?.next = nil;
-    
-    var node = linkList.headNode;
-    while preNode != nil && node != nil{
-        if node?.value != preNode?.value {
-            print("不是回文链表")
-            return
+    // 对比
+    var node = linkList._headNode;
+    while preNode != nil && node != nil {
+        if preNode?.value != node?.value {
+            return false;
         }
         preNode = preNode?.next;
-        node = node?.next
+        node = node?.next;
     }
-    
-    print("是回文链表")
+    return true
 }
 
 /// 求链表的中间节点 1 2 3 4 5
-func middleNode(linkList : LinkList){
-    print("求链表的中间节点")
-    if linkList.headNode == nil || linkList.headNode?.next == nil {
-        print("当前链表的中间节点为：\(linkList.headNode!.value)")
-        return
+func linkListMiddleNode(linkList : LinkList) -> Int {
+    
+    if linkList.isEmpty() {
+        return -1
     }
-    var quickNode = linkList.headNode;
-    var slowNode = linkList.headNode;
+    
+    if linkList._headNode?.next == nil {
+        return linkList._headNode!.value
+    }
+    
+    var slowNode = linkList._headNode;
+    var quickNode = linkList._headNode;
+    
     while quickNode != nil && quickNode?.next != nil{
-        slowNode = slowNode?.next
-        quickNode = quickNode?.next?.next
+        slowNode = slowNode?.next;
+        quickNode = quickNode?.next?.next;
     }
-    print("当前链表的中间节点为：\(slowNode!.value)")
+    
+    return (slowNode?.value)!
 }
 
-/// 删除链表倒数第 n 个节点
-func deleteNode(index : Int, linkList : LinkList) {
-    print("删除链表倒数第 \(index) 个节点")
-    // 需要先找到倒数第 n 个节点 1 2 3 4 n=2
-    var quickNode = linkList.headNode;
-    var cur = 1;
-    while cur != index {
+/// 删除链表倒数第n个结点 1 2 3 4 5
+func deleteLinkListNode(linkList : LinkList, index : Int) {
+    
+    if linkList.isEmpty() {
+        return;
+    }
+    let dummyPreNode = LinkNode()
+    dummyPreNode.next = linkList._headNode;
+    
+    var slowNode = dummyPreNode;
+    // 先找到第n个结点
+    var quickNode = dummyPreNode.next;
+    var indexx = 1;
+    while indexx != index {
         if quickNode?.next == nil {
             print("超出数量限制")
-            return;
+            return
         }
-        quickNode = quickNode?.next;
-        cur += 1
+        quickNode = quickNode?.next!;
+        indexx += 1;
     }
     
-    var node = LinkNode()
-    node.next = linkList.headNode;
-    var preNode = node;
-    while quickNode?.next != nil {
-        quickNode = quickNode?.next;
-        preNode = preNode.next!
+    // 逐步加
+    while quickNode!.next != nil {
+        slowNode = slowNode.next!;
+        quickNode = quickNode?.next!;
     }
-    
-    // 删除 slowNode
-    preNode.next = preNode.next?.next;
-    linkList.headNode = node.next;
-    linkList.printLinkList()
+    slowNode.next = slowNode.next?.next;
+    linkList._headNode = dummyPreNode.next;
+    linkList.printLinkList();
 }
 
 /// 合并两个有序链表，递归解法
-func mergeLinkList1(_ linkList1 : LinkList, _ linkList2 : LinkList) {
-    linkList1.headNode = mergeLinkNode(linkList1.headNode, linkList2.headNode);
-    linkList1.printLinkList();
+func mergeLinkList1(_ linkList1 : LinkList, _ linkList2 : LinkList) -> LinkList{
+    linkList1._headNode = mergeLinkNode(linkNode1: linkList1._headNode, linkNode2: linkList2._headNode);
+    return linkList1
 }
 
-func mergeLinkNode(_ linkNode1 : LinkNode?, _ linkNode2 : LinkNode?) -> LinkNode {
-    if linkNode1 == nil {
+/// 合并两个有序链表，递归
+func mergeLinkNode(linkNode1 : LinkNode?, linkNode2 : LinkNode?) -> LinkNode{
+    if linkNode1 == nil && linkNode2 != nil{
         return linkNode2!
-    }else if (linkNode2 == nil){
+    }
+    if linkNode2 == nil && linkNode1 != nil{
         return linkNode1!
-    }else if(linkNode1!.value < linkNode2!.value){
-        linkNode1?.next = mergeLinkNode(linkNode1!.next, linkNode2)
+    }
+    if linkNode2!.value > linkNode1!.value {
+        linkNode1!.next = mergeLinkNode(linkNode1: linkNode1?.next, linkNode2: linkNode2)
         return linkNode1!
-    }else{
-        linkNode2?.next = mergeLinkNode(linkNode1, linkNode2!.next);
+    }else {
+        linkNode2!.next = mergeLinkNode(linkNode1: linkNode1, linkNode2: linkNode2?.next)
         return linkNode2!
     }
 }
 
-/// 合并两个有序链表
-func mergeLinkList(_ linkList1 : LinkList, _ linkList2 : LinkList) {
-    // 合并两个有序链表
-    let node = LinkNode()
-    var preNode = node;
-    preNode.value = 0;
-    
-    var node1 = linkList1.headNode;
-    var node2 = linkList2.headNode;
-    while node1 != nil && node2 != nil{
-        if node1!.value > node2!.value {
-            preNode.next = node2
-            node2 = node2?.next
-        }else{
-            preNode.next = node1
-            node1 = node1?.next
+/// 合并两个有序链表，非递归1
+func mergeLinkList2(_ linkList1 : LinkList, _ linkList2 : LinkList) -> LinkList{
+    if linkList1.isEmpty() {
+        return linkList2
+    }
+    if linkList2.isEmpty() {
+        return linkList1
+    }
+    let dummyNode = LinkNode()
+    var preNode = dummyNode;
+    var linkCurNode1 = linkList1._headNode;
+    var linkCurNode2 = linkList2._headNode;
+    while linkCurNode1 != nil || linkCurNode2 != nil{
+        if linkCurNode1 == nil {
+            preNode.next = linkCurNode2;
+            linkCurNode2 = linkCurNode2?.next
+        }else if linkCurNode2 == nil{
+            preNode.next = linkCurNode1;
+            linkCurNode1 = linkCurNode1?.next
+        }else if (linkCurNode1?.value)! < (linkCurNode2?.value)!{
+            preNode.next = linkCurNode1;
+            linkCurNode1 = linkCurNode1?.next
+        }else if (linkCurNode1?.value)! > (linkCurNode2?.value)!{
+            preNode.next = linkCurNode2;
+            linkCurNode2 = linkCurNode2?.next
         }
-        preNode = preNode.next!
+        preNode = preNode.next!;
     }
-    
-    linkList1.headNode = node.next;
-    linkList1.printLinkList()
+    linkList1._headNode = dummyNode.next;
+    return linkList1;
 }
 
 /// 判断链表是否有环
-func cycleCheck(linkList : LinkList){
-    // 构建环
-    if linkList.isEmpty() {
-        print("链表是空的")
-        return
+func checkLinkListHasCycle(linkList : LinkList) -> Bool{
+    
+    if linkList.isEmpty() || linkList._headNode?.next == nil {
+        return false
     }
     
-    if linkList.headNode?.next == nil {
-        print("只有一个，也不是循环链表")
-        return
-    }
-    
-    print("先构建一个循环链表");
-    var node = linkList.headNode;
-    while node?.next != nil {
-        node = node?.next;
-    }
-    node?.next = linkList.headNode?.next;
-    
-    // 构建环完毕
-//    linkList.printLinkList()
-    
-    // 判断环
-    var slowNode = linkList.headNode;
-    var quickNode = linkList.headNode?.next;
-    // 当链表不存在环时，快指针将先到达尾部，所以可以用快指针判断是否循环一遍
-    // 当链表存在环时，每一次循环，快指针和慢指针的距离-1
-    while slowNode != quickNode {
-        if quickNode == nil || quickNode?.next == nil {
-            print("无环");
-            return
-        }
-        slowNode = slowNode?.next
-        quickNode = quickNode?.next?.next
-    }
-    print("有环")
-}
-
-/// 反转单链表，并输出
-func reverseLinkList(linkList : LinkList){
-    print("当前要反转的链表为：",terminator: "")
-    linkList.printLinkList()
-    
-    // 常规算法，空间复杂度 O(1) 时间复杂度 O(n)
-    if linkList.isEmpty() || linkList.headNode?.next == nil {
-        print("链表为空，或者只有一个结点，则不需要反转")
-        return;
-    }
-
-    var preNode : LinkNode? = nil;
-    var curNode : LinkNode? = linkList.headNode;
-    while curNode != nil {
-        let node = curNode?.next;
-        curNode?.next = preNode;
-        preNode = curNode;
-        curNode = node;
-    }
-    linkList.headNode = preNode;
-    print("反转后的链表为：",terminator: "")
-    linkList.printLinkList()
-}
-
-// 递归反转链表算法
-func reverseLinkNode(linkNode : LinkNode?) -> LinkNode?{
-    
-    if(linkNode == nil || linkNode?.next == nil){
-        return linkNode;
-    }
-    
-    let node = reverseLinkNode(linkNode: linkNode?.next);
-    linkNode?.next?.next = linkNode;
-    linkNode?.next = nil;
-    return node;
-}
-
-//1 - 2 - 3 - 4 - 5
-
-
-
-
-
-
-
-
-
-
-
-func updateNode(node : LinkNode, linkList : LinkList) {
-    let maxNodes = 5;
-    if contaninNode(node: node, linkList: linkList) {
-        // 找到node，将它移除，然后插入头部
-        let headNode = LinkNode()
-        headNode.next = linkList.headNode;
-        var preNode = headNode;
-        while preNode.next != nil {
-            if preNode.next?.value ==  node.value{
-                preNode.next = preNode.next?.next;
-                break;
-            }
-            preNode = preNode.next!
-        }
-        
-        // 插入到头部
-        node.next = linkList.headNode;
-        linkList.headNode = node;
-        
-    }else{
-        // 不存在，直接插到头部
-        node.next = linkList.headNode;
-        linkList.headNode = node;
-        linkList.count += 1;
-        
-        if linkList.count > maxNodes {
-            // 如果>最大数量，那么移除最后一个，找到倒数第二个
-            var curNode = linkList.headNode;
-            while curNode?.next?.next != nil {
-                curNode = curNode?.next
-            }
-            curNode?.next = nil;
-            linkList.count -= 1;
-        }
-    }
-    print("打印链表")
-    linkList.printLinkList()
-}
-
-// 判断node是否存在
-func contaninNode(node : LinkNode, linkList : LinkList) -> Bool {
-    var curNode = linkList.headNode;
-    while curNode != nil {
-        if curNode?.value == node.value {
+    var slowNode = linkList._headNode;
+    var quickNode = linkList._headNode?.next;
+    while slowNode?.next != nil || quickNode?.next?.next != nil {
+        if quickNode == slowNode{
             return true
         }
-        curNode = curNode?.next
+        slowNode = slowNode?.next;
+        quickNode = quickNode?.next?.next;
     }
     return false
 }
+
+/// 反转单链表，并输出，非递归
+func reverseLinkList1(linkList : LinkList){
+    // 没有结点
+    if linkList.isEmpty() {
+        return;
+    }
+
+    print("反转后的链表为：");
+    
+    // 只有一个结点
+    if linkList._headNode?.next == nil {
+        linkList.printLinkList();
+        return
+    }
+    
+    var preNode : LinkNode? = nil;
+    var curNode = linkList._headNode;
+    while curNode != nil {
+        let nextNode = curNode?.next;
+        curNode?.next = preNode;
+        preNode = curNode!;
+        curNode = nextNode;
+    }
+    
+    linkList._headNode = preNode;
+    linkList.printLinkList();
+}
+
+// 递归反转链表算法
+func reverseLinkList2(linkList : LinkList){
+    if linkList.isEmpty() {
+        return
+    }
+    linkList._headNode = reverseLinkNode(linkNode: linkList._headNode!);
+    linkList.printLinkList()
+}
+func reverseLinkNode(linkNode : LinkNode) -> LinkNode {
+    
+    if linkNode.next == nil {
+        return linkNode
+    }
+    
+    let headNode = reverseLinkNode(linkNode: linkNode.next!);
+    linkNode.next?.next = linkNode;
+    linkNode.next = nil;
+    return headNode;
+}
+
+
+

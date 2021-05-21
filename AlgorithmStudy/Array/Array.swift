@@ -7,45 +7,26 @@
 
 import Foundation
 
-class CE_Array : NSObject,PublicProtocol {
-    var _arr = [Int](repeating: 0, count: 100)
-    
-    override init() {
-        super.init()
-        _arr = [1,2,3,4,5,6,7,8,9]
-        run()
-    }
-    
-    func run() {
-        self.insertObject(obj: 666, index: 4)
-        self.deleteObject(index: 4)
-    }
-    
-    // 插入一个元素
-    func insertObject(obj:Int, index:Int) {
-        if index >= _arr.count {
-            _arr.append(obj);
-        }else{
-            _arr.append(0);
-            // 都向后移动一位
-            for i in (index + 1 ..< _arr.count).reversed() {
-                _arr[i] = _arr[i - 1]
-            }
-            _arr[index] = obj
+// 合并两个有序数组
+func mergeTwoArray(arr1 : Array<Int>, arr2 : Array<Int>) -> Array<Int> {
+    var result = Array<Int>()
+    var arr1Index = 0;
+    var arr2Index = 0;
+    while arr1Index < arr1.count || arr2Index < arr2.count {
+        // 需要注意顺序，先进行 arr1Index 或者 arr2Index 和数组的长度比较
+        if arr1Index >= arr1.count{
+            result.append(arr2[arr2Index]);
+            arr2Index = arr2Index + 1
+        }else if arr2Index >= arr2.count{
+            result.append(arr1[arr1Index])
+            arr1Index = arr1Index + 1
+        }else if arr1[arr1Index] < arr2[arr2Index] {
+            result.append(arr1[arr1Index])
+            arr1Index = arr1Index + 1
+        }else if arr1[arr1Index] > arr2[arr2Index]{
+            result.append(arr2[arr2Index])
+            arr2Index = arr2Index + 1
         }
-        print("插入后: \(_arr)")
     }
-    
-    // 删除一个元素
-    func deleteObject(index:Int) {
-        if index >= _arr.count {
-            _arr.removeLast();
-        }else{
-            for i in (index ..< _arr.count - 1) {
-                _arr[i] = _arr[i + 1]
-            }
-            _arr.removeLast();
-        }
-        print("删除后: \(_arr)")
-    }
+    return result;
 }
